@@ -54,7 +54,7 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
           'image':'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
           'command':[]
           'resources':{
-            'cpu':1
+            'cpu':0.25
             'memory':'.5Gi'
           }
         }
