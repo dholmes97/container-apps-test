@@ -1,7 +1,7 @@
 param name string
 param secrets array = []
+param location string = resourceGroup().location
 
-var location = resourceGroup().location
 var environmentName = 'Production'
 var workspaceName = '${name}-log-analytics'
 
@@ -54,7 +54,7 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
           'image':'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
           'command':[]
           'resources':{
-            'cpu':'.25'
+            'cpu':1
             'memory':'.5Gi'
           }
         }
