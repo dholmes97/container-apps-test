@@ -5,7 +5,7 @@ param location string = resourceGroup().location
 var environmentName = 'Production'
 var workspaceName = '${name}-log-analytics'
 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
+resource workspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   name: workspaceName
   location: location
   properties: {
