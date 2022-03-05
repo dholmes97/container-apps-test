@@ -23,8 +23,10 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            tags='{"owner":"danholmes", "email":"dholmes97@gmail.com"}'
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --template-file ./infra/main.bicep \
               --parameters \
-                name='test-app'
+                name='test-app' \
+                tags="$tags"
