@@ -6,6 +6,7 @@ on:
 
 env:
   RESOURCE_GROUP: rg-container-apps-test
+  REGISTRY: ghcr.io
 
 jobs:
   build:
@@ -18,7 +19,7 @@ jobs:
       contents: read
       packages: write
     outputs:
-      containerImage-node: ${{ steps.image-tag.outputs.image-node-service }}
+      containerImage-node: ${{ steps.image-tag.outputs.image-redgreen }}
     steps:
       # Checkout repository
       - name: Checkout repository
@@ -64,6 +65,7 @@ jobs:
         run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
   deploy:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -84,3 +86,9 @@ jobs:
               --parameters \
                 name='test-app' \
                 tags="$tags"
+                redgreenImage='${{ needs.build.outputs.containerImage-node }}' \
+                redgreenPort=8080 \
+                redgreedIsExternalIngress=true \
+                containerRegistry=${{ env.REGISTRY }} \
+                containerRegistryUsername=${{ github.actor }} \
+                containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }}
