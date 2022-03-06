@@ -12,7 +12,6 @@ param containerRegistryPassword string
 var environmentName = 'Production'
 var workspaceName = '${name}-log-analytics'
 var appInsightsName = '${name}-app-insights'
-var containerRegistryPasswordRef = 'container-registry-password'
 
 resource workspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   name: workspaceName
@@ -68,7 +67,7 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
         {
           server: containerRegistry
           username: containerRegistryUsername
-          passwordSecretRef: containerRegistryPasswordRef
+          passwordSecretRef: containerRegistryPassword
         }
       ]
       ingress: {
