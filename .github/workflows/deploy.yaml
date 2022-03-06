@@ -41,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ matrix.services.imageName }}
+          images: ${{ env.REGISTRY }}/dholmes97/${{ matrix.services.imageName }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -62,7 +62,7 @@ jobs:
       # Output image tag
       - name: Output image tag
         id: image-tag
-        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
+        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/dholmes97/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
