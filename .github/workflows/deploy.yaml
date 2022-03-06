@@ -85,7 +85,7 @@ jobs:
               --template-file ./infra/main.bicep \
               --parameters \
                 name='test-app' \
-                tags="$tags"
+                tags="$tags" \
                 redgreenImage='${{ needs.build.outputs.containerImage-node }}' \
                 redgreenPort=8080 \
                 redgreedIsExternalIngress=true \
