@@ -88,7 +88,6 @@ jobs:
                 tags="$tags" \
                 redgreenImage='${{ needs.build.outputs.containerImage-node }}' \
                 redgreenPort=8080 \
-                redgreedIsExternalIngress=true \
                 containerRegistry=${{ env.REGISTRY }} \
                 containerRegistryUsername=${{ github.actor }} \
                 containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }}
