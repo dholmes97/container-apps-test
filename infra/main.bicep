@@ -1,11 +1,17 @@
 param name string
+param redgreenImage string
 param secrets array = []
 param location string = resourceGroup().location
 param tags object
+param containerRegistry string
+param containerRegistryUsername string
+@secure()
+param containerRegistryPassword string
 
 var environmentName = 'Production'
 var workspaceName = '${name}-log-analytics'
 var appInsightsName = '${name}-app-insights'
+var containerRegistryPasswordRef = 'container-registry-password'
 
 resource workspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   name: workspaceName
@@ -57,19 +63,25 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
     kubeEnvironmentId: environment.id
     configuration: {
       secrets: secrets
-      registries: []
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
       ingress: {
-        'external':true
-        'targetPort':80
+        'external': true
+        'targetPort': 80
       }
     }
     template: {
       containers: [
         {
-          'name':'simple-hello-world-container'
-          'image':'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-          'command':[]
-          'resources':{
+          'name': 'redgreen-app'
+          'image': redgreenImage
+          'command': []
+          'resources': {
             'cpu':'.25'
             'memory':'.5Gi'
           }
