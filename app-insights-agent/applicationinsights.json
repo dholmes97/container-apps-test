@@ -1,0 +1,3 @@
+{
+    "connectionString": "InstrumentationKey=ff0a5580-f195-4c2c-9252-449fcc81d46b;IngestionEndpoint=https://eastus2-0.in.applicationinsights.azure.com/"
+}
