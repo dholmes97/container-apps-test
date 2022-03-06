@@ -1,5 +1,6 @@
 param name string
 param redgreenImage string
+param redgreenPort int
 param secrets array = []
 param location string = resourceGroup().location
 param tags object
@@ -72,7 +73,7 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
       ]
       ingress: {
         'external': true
-        'targetPort': 80
+        'targetPort': redgreenPort
       }
     }
     template: {
