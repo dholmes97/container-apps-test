@@ -13,5 +13,5 @@ FROM openjdk:11-jre
 WORKDIR /root/
 ADD app-insights-agent/ /app/
 COPY --from=BUILD_IMAGE /root/dev/redgreen/build/libs/redgreen-*.jar /app/redgreen.jar
-EXPOSE 8080
+EXPOSE 8081
 ENTRYPOINT [ "java", "-javaagent:/app/applicationinsights-agent-3.2.7.jar", "-jar", "/app/redgreen.jar"]

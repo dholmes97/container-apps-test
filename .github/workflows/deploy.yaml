@@ -87,7 +87,7 @@ jobs:
                 name='test-app' \
                 tags="$tags" \
                 redgreenImage='${{ needs.build.outputs.containerImage-node }}' \
-                redgreenPort=8080 \
+                redgreenPort=8081 \
                 containerRegistry=${{ env.REGISTRY }} \
                 containerRegistryUsername=${{ github.actor }} \
                 containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }}
